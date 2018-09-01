@@ -22,9 +22,20 @@ sun 140.252.13.33
 svr4 140.252.13.34
 slip 140.252.13.65"
 
-copy_hosts() {
-    docker cp hosts $1:/etc/hosts
+
+clean_hosts() {
+    docker exec -it 
+    sed -i "/aix\|solaris\|gemini\|gateway\|netb\|bsdi\|sun\|svr4\|slip/d"
 }
+
+config_hosts_and_hostname() {
+    docker exec -it $1 hostname $1
+    docker exec -it $1 sed -i "/aix\|solaris\|gemini\|gateway\|netb\|bsdi\|sun\|svr4\|slip/d" /etc/hosts
+    docker exec -it $1 echo $2 >> /etc/hosts
+}
+
+add_hosts_option="--add-host=aix:140.252.1.92 --add-host=solaris:140.252.1.32 --add-host=gemini:140.252.1.11 --add-host=gateway:140.252.1.4 \
+--add-host=netb:140.252.1.183 --add-host=bsdi:140.252.13.35 --add-host=sun:140.252.13.33 --add-host=svr4:140.252.13.34 --add-host=slip:140.252.13.65"
 
 publiceth=$1
 imagename=$2
@@ -43,7 +54,7 @@ sysctl -p
 
 echo "create all containers"
 
-docker run --privileged=true --net none --name aix -d ${imagename}
+docker run --privileged=true --net none --name aix ${add_hosts_option} -d ${imagename}
 docker run --privileged=true --net none --name solaris -d ${imagename}
 docker run --privileged=true --net none --name gemini -d ${imagename}
 docker run --privileged=true --net none --name gateway -d ${imagename}
