@@ -22,18 +22,6 @@ sun 140.252.13.33
 svr4 140.252.13.34
 slip 140.252.13.65"
 
-
-clean_hosts() {
-    docker exec -it 
-    sed -i "/aix\|solaris\|gemini\|gateway\|netb\|bsdi\|sun\|svr4\|slip/d"
-}
-
-config_hosts_and_hostname() {
-    docker exec -it $1 hostname $1
-    docker exec -it $1 sed -i "/aix\|solaris\|gemini\|gateway\|netb\|bsdi\|sun\|svr4\|slip/d" /etc/hosts
-    docker exec -it $1 echo $2 >> /etc/hosts
-}
-
 add_hosts_option="--add-host=aix:140.252.1.92 --add-host=solaris:140.252.1.32 --add-host=gemini:140.252.1.11 --add-host=gateway:140.252.1.4 \
 --add-host=netb:140.252.1.183 --add-host=bsdi:140.252.13.35 --add-host=sun:140.252.13.33 --add-host=svr4:140.252.13.34 --add-host=slip:140.252.13.65"
 
@@ -54,15 +42,15 @@ sysctl -p
 
 echo "create all containers"
 
-docker run --privileged=true --net none --name aix ${add_hosts_option} -d ${imagename}
-docker run --privileged=true --net none --name solaris -d ${imagename}
-docker run --privileged=true --net none --name gemini -d ${imagename}
-docker run --privileged=true --net none --name gateway -d ${imagename}
-docker run --privileged=true --net none --name netb -d ${imagename}
-docker run --privileged=true --net none --name sun -d ${imagename}
-docker run --privileged=true --net none --name svr4 -d ${imagename}
-docker run --privileged=true --net none --name bsdi -d ${imagename}
-docker run --privileged=true --net none --name slip -d ${imagename}
+docker run --privileged=true --net none --name aix -h aix "${add_hosts_option}" -d ${imagename}
+docker run --privileged=true --net none --name solaris -h solaris "${add_hosts_option}" -d ${imagename}
+docker run --privileged=true --net none --name gemini -h gemini "${add_hosts_option}" -d ${imagename}
+docker run --privileged=true --net none --name gateway -h gateway "${add_hosts_option}" -d ${imagename}
+docker run --privileged=true --net none --name netb -h netb "${add_hosts_option}" -d ${imagename}
+docker run --privileged=true --net none --name sun -h sun "${add_hosts_option}" -d  ${imagename}
+docker run --privileged=true --net none --name svr4 -h svr4 "${add_hosts_option}" -d ${imagename}
+docker run --privileged=true --net none --name bsdi -h bsdi "${add_hosts_option}" -d ${imagename}
+docker run --privileged=true --net none --name slip -h slip "${add_hosts_option}" -d ${imagename}
 
 #创建两个网桥，代表两个二层网络
 echo "create bridges"
