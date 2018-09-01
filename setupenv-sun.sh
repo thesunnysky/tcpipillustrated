@@ -42,15 +42,15 @@ sysctl -p
 
 echo "create all containers"
 
-docker run --privileged=true --net none --name aix -h aix "${add_hosts_option}" -d ${imagename}
-docker run --privileged=true --net none --name solaris -h solaris "${add_hosts_option}" -d ${imagename}
-docker run --privileged=true --net none --name gemini -h gemini "${add_hosts_option}" -d ${imagename}
-docker run --privileged=true --net none --name gateway -h gateway "${add_hosts_option}" -d ${imagename}
-docker run --privileged=true --net none --name netb -h netb "${add_hosts_option}" -d ${imagename}
-docker run --privileged=true --net none --name sun -h sun "${add_hosts_option}" -d  ${imagename}
-docker run --privileged=true --net none --name svr4 -h svr4 "${add_hosts_option}" -d ${imagename}
-docker run --privileged=true --net none --name bsdi -h bsdi "${add_hosts_option}" -d ${imagename}
-docker run --privileged=true --net none --name slip -h slip "${add_hosts_option}" -d ${imagename}
+docker run --privileged=true --net none --name aix -h aix ${add_hosts_option} -d ${imagename}
+docker run --privileged=true --net none --name solaris -h solaris ${add_hosts_option} -d ${imagename}
+docker run --privileged=true --net none --name gemini -h gemini ${add_hosts_option} -d ${imagename}
+docker run --privileged=true --net none --name gateway -h gateway ${add_hosts_option} -d ${imagename}
+docker run --privileged=true --net none --name netb -h netb ${add_hosts_option} -d ${imagename}
+docker run --privileged=true --net none --name sun -h sun ${add_hosts_option} -d  ${imagename}
+docker run --privileged=true --net none --name svr4 -h svr4 ${add_hosts_option} -d ${imagename}
+docker run --privileged=true --net none --name bsdi -h bsdi ${add_hosts_option} -d ${imagename}
+docker run --privileged=true --net none --name slip -h slip ${add_hosts_option} -d ${imagename}
 
 #创建两个网桥，代表两个二层网络
 echo "create bridges"
