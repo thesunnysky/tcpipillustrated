@@ -1,11 +1,11 @@
 #!/bin/bash
 
-docker run aix
-docker run solaris
-docker run gemini
-docker run gateway
-docker run netb
-docker run sun
-docker run svr4
-docker run bsdi
-docker run slip
+docker start aix
+docker start solaris
+docker start gemini
+docker start gateway
+docker start netb
+docker start sun
+docker start svr4
+docker start bsdi
+docker start slip
